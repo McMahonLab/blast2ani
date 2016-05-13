@@ -59,3 +59,50 @@ Ran the following commands on them, -kb stand for keep all best, so it will coun
 Parsed results into one file for each group (ME-acI, nonME-acI, ME-LD12, nonME-LD12)
 
 Visualized results with vis\_scripts/competative\_plotseqdiscden.R
+
+### BLASTing all metagenomes against all SAGs
+
+#### Running BLAST 
+Ran the following on each SAG and metagenome combo individually.  Where:
+	- blastn version = 2.2.31
+	- used already made blastdb's from blast single metagenome (info above)
+	- SAG.db = SAG blast db made from fna file (without rrna and contigs renamed for parsing ease) 
+	- metagenome = the fna file of the metagenome reads
+	- outname = name for resulting blastfile 
+
+```
+blastn -task blastn -db SAG.db -query metagenome -out outname.blast -evalue 0.001 -outfmt 6 -perc_identity 95
+```
+I named all of the output files with this scheme: metagenome-vs-SAG.blast
+
+#### Reformatting and filtering resulting BLAST files
+
+Reformatted the BLAST results to be more useful for me and then filtered them only keeping hits longer than 200bp and > 97.5 identity.
+
+##### Reformatting resulting BLAST files
+
+All the raw blast results were in a folder called raw\_blast\_all
+Ran the following commands to get the names of all the SAGs from the blast results and then use grep to combine and add the metagenome information in at the same time.
+```
+ls raw_blast_all/*.blast | cut -d - -f 3 | cut -d _ -f 1 | sort | uniq > SAGnames.txt
+while read line; do echo $line; grep $line raw_blast_all/*$line*.blast > MEmeta-vs-$line.blast; done < SAGnames.txt
+```
+
+Removing path from metagenome name and then making that its own column.  All my metagenome names have '.len150' after the library name so I split on that.
+```
+for file in MEmeta-vs-A*; do sed -i.ibak 's/raw\_blast\_all\///g' $file; done
+rm *.ibak
+for file in MEmeta-vs-A*.blast; do sed -i.ibak 's/.len150/        len150/g' $file; done
+rm *.ibak
+```
+Removed backups after checking that proccess was successful. 
+
+##### Filtering resulting blast files
+
+Ran the following for each reformatted blast result file.  Where:
+	- blastfile = newly reformatted blast file
+
+```
+awk '($5 > 200)' blastfile | awk '($4 > 97.5)' > blastfile.len200.id975; done
+```
+
