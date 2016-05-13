@@ -159,3 +159,6 @@ pid.txt - the average percent identity of all of this hits for each season and S
 To get the abundance values in the manuscript, we multiplied the normalized_coverage.txt values by the average pool size (which was 3506155780, rounding 3506155779.9166665 to nearest integer)
 
 Scripts for Visualization of Figure 4 and 5 not included in repo.
+
+Note: calculateCovVals.py will also calculate these values by contigs instead of SAGs with the right arguments and inputs
+
