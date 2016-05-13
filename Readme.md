@@ -13,7 +13,7 @@ This section documents the workflow for BLASTing the reads from one metagenome (
 
 #### Running BLAST and filtering results
 
-Ran the following on each SAG individually.  Where:
+Ran the following on each SAG individually.  Where:  
 	- blastn version = 2.2.31
 	- SAG = SAG fna file (without rrna and contigs renamed for parsing ease) 
 	- metagenome = the fna file of the metagenome reads
@@ -62,8 +62,10 @@ Visualized results with vis\_scripts/competative\_plotseqdiscden.R
 
 ### BLASTing all metagenomes against all SAGs
 
+This section documents the workflow for BLASTing the reads from all metagenomes, with identity cutoff, against a set of single cell genomes.  Resulting in Figure 4 of the manuscript.
+
 #### Running BLAST 
-Ran the following on each SAG and metagenome combo individually.  Where:
+Ran the following on each SAG and metagenome combo individually.  Where:  
 	- blastn version = 2.2.31
 	- used already made blastdb's from blast single metagenome (info above)
 	- SAG.db = SAG blast db made from fna file (without rrna and contigs renamed for parsing ease) 
@@ -99,7 +101,7 @@ Removed backups after checking that proccess was successful.
 
 ##### Filtering resulting blast files
 
-Ran the following for each reformatted blast result file.  Where:
+Ran the following for each reformatted blast result file.  Where:  
 	- blastfile = newly reformatted blast file
 
 ```
@@ -108,7 +110,7 @@ awk '($5 > 200)' blastfile | awk '($4 > 97.5)' > blastfile.len200.id975; done
 
 ##### Pooling Results by Month
 
-Pooled data by month by replacing metagenome names with year and month by running poolBLASTS.py on each filtered and formated blast result file. Where:
+Pooled data by month by replacing metagenome names with year and month by running poolBLASTS.py on each filtered and formated blast result file. Where:  
 	- blastfile.len200.id975 = the resulting file from reformatting and filtering.
 	- sample_data.txt = a tab-separated file with the following columns in it (in order):
 		sample, reads, bps, layer, date, year, month, day
@@ -126,4 +128,3 @@ Ran the following command on each reformatted, filtered, and pooled blast result
 ```
 ./blast_besthit.py --blast_in blastfile.len200.id975.pooled --pooled
 ```
-
