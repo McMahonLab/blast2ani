@@ -128,3 +128,34 @@ Ran the following command on each reformatted, filtered, and pooled blast result
 ```
 ./blast_besthit.py --blast_in blastfile.len200.id975.pooled --pooled
 ```
+
+#### Getting coverage and abundance values
+
+Inputs:
+	- Blast results file(s) (reformatted, filtered, pooled, and bbh) called blastfile.len200.id975.pooled.ind.bbh below
+	- Metagenome size file (where metagenome names are replaced with pooled names), pools will be totalled in script below (and anything after '.' removed later and what is left should match pool names in blast files), called pooledmetagenomesize.txt below
+		E.g. 2008_09.len	653414814
+			 2008_07.len	856300613
+		was: CSCW.len	653414814
+			 CSCX.len	856300613
+	- SAG/genome size file (anything after first '\_' removed and what is left should match SAG/genome names in blast file contig names), called genomeSizesSAGs.txt below
+		E.g. AAA027C02_norrna_short.len	1265699
+			 AAA027D23_norrna_short.len	942294
+			 AAA027G08_norrna_short.len	1320847
+
+Concatenated all reformatted, filtered, pooled and individual bbh files together(blastfile.len200.id975.pooled.ind.bbh).
+
+```
+./calculateCovVals.py -all_blast 'blastfile.len200.id975.pooled.ind.bbh' -mSF pooledmetagenomesize.txt -gSF genomeSizesSAGs.txt -bbh 
+```
+
+Outputs the following files:
+covered\_bases.txt - adding up all of the alignment lengths - gaps for a each season and SAG/genome
+genome\_cov.txt - divides covered\_bases.txt numbers buy size of each SAG/genome
+hit\_table.txt - counts number of hits for each season and SAG/genome
+normalized\_cov.txt - devides genome\cov.txt by size of each pool (which was get added together earlier in the script)
+pid.txt - the average percent identity of all of this hits for each season and SAG/genome
+
+To get the abundance values in the manuscript, we multiplied the normalized_coverage.txt values by the average pool size (which was 3506155780, rounding 3506155779.9166665 to nearest integer)
+
+Scripts for Visualization of Figure 4 and 5 not included in repo.
