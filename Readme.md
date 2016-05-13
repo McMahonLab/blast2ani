@@ -75,9 +75,9 @@ blastn -task blastn -db SAG.db -query metagenome -out outname.blast -evalue 0.00
 ```
 I named all of the output files with this scheme: metagenome-vs-SAG.blast
 
-#### Reformatting and filtering resulting BLAST files
+#### Reformatting, filtering, and pooling resulting BLAST files
 
-Reformatted the BLAST results to be more useful for me and then filtered them only keeping hits longer than 200bp and > 97.5 identity.
+Reformatted the BLAST results to be more useful for me. Then filtered them only keeping hits longer than 200bp and > 97.5 identity.  Then I replaced the metagenome names with the month and year to pool the results by month.
 
 ##### Reformatting resulting BLAST files
 
@@ -105,4 +105,16 @@ Ran the following for each reformatted blast result file.  Where:
 ```
 awk '($5 > 200)' blastfile | awk '($4 > 97.5)' > blastfile.len200.id975; done
 ```
+
+##### Pooling Results by Month
+
+Pooled data by month by replacing metagenome names with year and month by running poolBLASTS.py on each filtered and formated blast result file. Where:
+	- blastfile.len200.id975 = the resulting file from reformatting and filtering.
+	- sample_data.txt = a tab-separated file with the following columns in it (in order):
+		sample, reads, bps, layer, date, year, month, day
+		
+```
+./poolBLASTS.py blastfile.len200.id975 sample_data.txt
+```
+
 
