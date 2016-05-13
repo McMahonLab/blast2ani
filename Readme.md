@@ -7,9 +7,11 @@ S., Bertilsson, Malmstrom, R. R., McMahon, K. D. (prepared for submission). Geno
 uncultivated freshwater bacteria reveals distinct and dynamic populations.
 
 
-### One Metagagenome
+### BLASTing metagenome closest to SAG collection against SAGs
 
-This section documents the workflow for blasting the reads from one metagenome, with no identity cutoff, against a set of single cell genomes.
+This section documents the workflow for BLASTing the reads from one metagenome (collected closest to SAG collection), with no identity cutoff, against a set of single cell genomes.  Resulting in Figure 2 of the manuscript.
+
+#### Running BLAST and filtering results
 
 Ran the following on each SAG individually.  Where:
 	- blastn version = 2.2.31
@@ -32,5 +34,28 @@ Wrote blast_besthit.py to keep only the top hit (based on bit score).  If same b
 Ran the following command on each filtered blast result.
 
 ```
-./blast_besthit.py -blast_in outname.blast.len200
+./blast\_besthit.py -blast_in outname.blast.len200
 ```
+Resulting files have same name and end in .bbh
+
+#### Non-competitive results
+
+Parsed results into one file for each group (ME-acI, nonME-acI, ME-LD12, nonME-LD12, and ME-others)
+
+Visualized results with vis_scripts/makeFig2\_plotseqdiscden.R
+
+#### Competitive results
+
+Also needed results that were competitive within acI and within LD12 groups.  Used blast_besthit.py to choose.
+
+Concatenated all the within SAG bbh results for LD12 (PTXW.len150-vs-LD12\_norrna\_short.blast.len200.bbh) and acI (PTXW.len150-vs-acI\_norrna.fna\_short.blast.len200.bbh) into one file for each group.
+
+Ran the following commands on them, -kb stand for keep all best, so it will count a read twice if the bit score is the same for 2 hits (since we can't tell which one it belongs to)
+```
+./blast\_besthit.py -bin LD12/PTXW.len150-vs-LD12\_norrna\_short.blast.len200.bbh -kb
+./blast\_besthit.py -bin acI/PTXW.len150-vs-acI\_norrna.fna_short.blast.len200.bbh -kb
+```
+
+Parsed results into one file for each group (ME-acI, nonME-acI, ME-LD12, nonME-LD12)
+
+Visualized results with vis\_scripts/competative\_plotseqdiscden.R
