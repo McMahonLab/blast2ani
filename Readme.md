@@ -111,8 +111,8 @@ awk '($5 > 200)' blastfile | awk '($4 > 97.5)' > blastfile.len200.id975; done
 ##### Pooling Results by Month
 
 Pooled data by month by replacing metagenome names with year and month by running poolBLASTS.py on each filtered and formated blast result file. Where:  
-	- blastfile.len200.id975 = the resulting file from reformatting and filtering.
-	- sample_data.txt = a tab-separated file with the following columns in it (in order):
+	- blastfile.len200.id975 = the resulting file from reformatting and filtering.  
+	- sample_data.txt = a tab-separated file with the following columns in it (in order):  
 		sample, reads, bps, layer, date, year, month, day
 		
 ```
