@@ -117,4 +117,13 @@ Pooled data by month by replacing metagenome names with year and month by runnin
 ./poolBLASTS.py blastfile.len200.id975 sample_data.txt
 ```
 
+##### Getting best hit files
+
+Wanted only the best hits (if a read hits that SAG/genome more than once).
+Used blast\_besthit.py to keep only the top hit (based on bit score).  If same bit score, keeps first one.
+Ran the following command on each reformatted, filtered, and pooled blast results(blastfile.len200.id975.pooled):
+
+```
+./blast_besthit.py --blast_in blastfile.len200.id975.pooled --pooled
+```
 
