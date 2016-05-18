@@ -151,7 +151,7 @@ Concatenated all reformatted, filtered, pooled and individual bbh files together
 
 Outputs the following files:  
 covered\_bases.txt - adding up all of the alignment lengths - gaps for a each season and SAG/genome  
-genome\_cov.txt - divides covered\_bases.txt numbers buy size of each SAG/genome  
+genome\_cov.txt - divides covered\_bases.txt numbers by size of each SAG/genome  
 hit\_table.txt - counts number of hits for each season and SAG/genome  
 normalized\_cov.txt - devides genome\cov.txt by size of each pool (which was get added together earlier in the script)  
 pid.txt - the average percent identity of all of this hits for each season and SAG/genome  
