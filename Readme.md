@@ -3,8 +3,7 @@
 This repo documents the workflow for the following manuscript:
 
 Garcia, S. L., Stevens, S. L. R., Crary, B., Martinez-Garcia, M., Stepanauskas, R., Woyke, T., Tringe, S. G., Andersson,
-S., Bertilsson, Malmstrom, R. R., McMahon, K. D. (prepared for submission). Genome level exploration of abundant and
-uncultivated freshwater bacteria reveals distinct and dynamic populations.
+S., Bertilsson, Malmstrom, R. R., McMahon, K. D. (prepared for submission). Contrasting patterns of genome-level diversity across distinct co-occurring freshwater bacterial populations.
 
 
 ### BLASTing metagenome closest to SAG collection against SAGs
