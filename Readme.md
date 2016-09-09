@@ -14,9 +14,9 @@ This section documents the workflow for BLASTing the reads from one metagenome (
 
 Ran the following on each SAG individually.  Where:  
 	- blastn version = 2.2.31
-	- SAG = SAG fna file (without rrna and contigs renamed for parsing ease) 
+	- SAG = SAG fna file (without rrna and contigs renamed for parsing ease)
 	- metagenome = the fna file of the metagenome reads
-	- outname = name for resulting blastfile 
+	- outname = name for resulting blastfile
 
 ```
 makeblastdb -in SAG -out SAG.db -dbtype nucl
@@ -63,13 +63,13 @@ Visualized results with vis\_scripts/competative\_plotseqdiscden.R
 
 This section documents the workflow for BLASTing the reads from all metagenomes, with identity cutoff, against a set of single cell genomes.  Resulting in Figure 4 of the manuscript.
 
-#### Running BLAST 
+#### Running BLAST
 Ran the following on each SAG and metagenome combo individually.  Where:  
 	- blastn version = 2.2.31
 	- used already made blastdb's from blast single metagenome (info above)
-	- SAG.db = SAG blast db made from fna file (without rrna and contigs renamed for parsing ease) 
+	- SAG.db = SAG blast db made from fna file (without rrna and contigs renamed for parsing ease)
 	- metagenome = the fna file of the metagenome reads
-	- outname = name for resulting blastfile 
+	- outname = name for resulting blastfile
 
 ```
 blastn -task blastn -db SAG.db -query metagenome -out outname.blast -evalue 0.001 -outfmt 6 -perc_identity 95
@@ -96,7 +96,7 @@ rm *.ibak
 for file in MEmeta-vs-A*.blast; do sed -i.ibak 's/.len150/        len150/g' $file; done
 rm *.ibak
 ```
-Removed backups after checking that proccess was successful. 
+Removed backups after checking that proccess was successful.
 
 ##### Filtering resulting blast files
 
@@ -113,7 +113,7 @@ Pooled data by month by replacing metagenome names with year and month by runnin
 	- blastfile.len200.id975 = the resulting file from reformatting and filtering.  
 	- sample_data.txt = a tab-separated file with the following columns in it (in order):  
 		sample, reads, bps, layer, date, year, month, day
-		
+
 ```
 ./poolBLASTS.py blastfile.len200.id975 sample_data.txt
 ```
@@ -145,7 +145,7 @@ Inputs:
 Concatenated all reformatted, filtered, pooled and individual bbh files together(blastfile.len200.id975.pooled.ind.bbh).
 
 ```
-./calculateCovVals.py -all_blast 'blastfile.len200.id975.pooled.ind.bbh' -mSF pooledmetagenomesize.txt -gSF genomeSizesSAGs.txt -bbh 
+./calculateCovVals.py -all_blast 'blastfile.len200.id975.pooled.ind.bbh' -mSF pooledmetagenomesize.txt -gSF genomeSizesSAGs.txt -bbh
 ```
 
 Outputs the following files:  
@@ -157,7 +157,8 @@ pid.txt - the average percent identity of all of this hits for each season and S
 
 To get the abundance values in the manuscript, we multiplied the normalized_coverage.txt values by the average pool size (which was 3506155780, rounding 3506155779.9166665 to nearest integer)
 
-Scripts for Visualization of Figure 4 and 5 not included in repo.
-
 Note: calculateCovVals.py will also calculate these values by contigs instead of SAGs with the right arguments and inputs
 
+### Additional Info
+
+Scripts for Visualization of Figure 4 and 5 not included in repo.
