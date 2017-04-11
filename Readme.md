@@ -29,7 +29,7 @@ awk '($4 > 200)' outname.blast > outname.blast.len200
 ```
 
 Wanted only the best hits (if a read hits that SAG/genome more than once).
-Wrote blast_besthit.py to keep only the top hit (based on bit score).  If same bit score, keeps first one.
+Wrote blast_besthit.py to keep only the top hit (based on bit score).  *If the bit score is the same for two best hits*, this script keeps only the first one, since for this study the precise location within SAG is not used.
 Ran the following command on each filtered blast result.
 
 ```
@@ -49,7 +49,7 @@ Also needed results that were competitive within acI and within LD12 groups.  Us
 
 Concatenated all the within SAG bbh results for LD12 (PTXW.len150-vs-LD12\_norrna\_short.blast.len200.bbh) and acI (PTXW.len150-vs-acI\_norrna.fna\_short.blast.len200.bbh) into one file for each group.
 
-Ran the following commands on them, -kb stand for keep all best, so it will count a read twice if the bit score is the same for 2 hits (since we can't tell which one it belongs to)
+Ran the following commands on them. Added the '-kb' flag to keep **all best hits between SAGs**, so the read will be counted twice if the bit score is the same for 2 hits **from different SAGs** (since the read hits both SAGs equally well).
 ```
 ./blast\_besthit.py -bin LD12/PTXW.len150-vs-LD12\_norrna\_short.blast.len200.bbh -kb
 ./blast\_besthit.py -bin acI/PTXW.len150-vs-acI\_norrna.fna_short.blast.len200.bbh -kb
