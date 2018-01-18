@@ -2,9 +2,7 @@
 
 This repo documents the workflow for the following manuscript:
 
-Garcia, S. L., Stevens, S. L. R., Crary, B., Martinez-Garcia, M., Stepanauskas, R., Woyke, T., Tringe, S. G., Andersson,
-S., Bertilsson, Malmstrom, R. R., McMahon, K. D. (prepared for submission). Contrasting patterns of genome-level diversity across distinct co-occurring freshwater bacterial populations.
-
+Garcia, S. L., Stevens, S. L. R., Crary, B., Martinez-Garcia, M., Stepanauskas, R., Woyke, T., … McMahon, K. D. (2017). Contrasting patterns of genome-level diversity across distinct co-occurring bacterial populations. The ISME Journal, 1. http://doi.org/10.1038/s41396-017-0001-0
 
 ### BLASTing metagenome closest to SAG collection against SAGs
 
